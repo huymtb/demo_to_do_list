@@ -35,20 +35,21 @@ class LocalDatabase {
     // Create recent search table
     await db.execute('''
       CREATE TABLE ${AppConstants.dbTodoTable} (
-      ${AppConstants.columnId} integer primary key autoincrement,
-      ${AppConstants.columnTitle} text,
-      ${AppConstants.columnDescription} text,
-      ${AppConstants.columnCreatedTime} text,
-      ${AppConstants.columnUpdatedTime} text,
-      ${AppConstants.columnDueDate} text,
-      ${AppConstants.columnPriority} integer,
-      ${AppConstants.columnCompleted} integer)',
+      ${AppConstants.columnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+      ${AppConstants.columnTitle} TEXT,
+      ${AppConstants.columnDescription} TEXT,
+      ${AppConstants.columnCreatedTime} TEXT,
+      ${AppConstants.columnUpdatedTime} TEXT,
+      ${AppConstants.columnDueDate} TEXT,
+      ${AppConstants.columnPriority} INTEGER,
+      ${AppConstants.columnCompleted} INTEGER)
     ''');
   }
 
-  Future<void> insertTask(TaskModel task) async {
+  Future<TaskModel> insertTask(TaskModel task) async {
     final db = await database;
-    await db?.insert(AppConstants.dbTodoTable, task.toMap());
+    task.id = await db?.insert(AppConstants.dbTodoTable, task.toMap());
+    return task;
   }
 
   Future<List<TaskModel>> getTasks() async {
@@ -63,6 +64,52 @@ class LocalDatabase {
       AppConstants.columnPriority,
       AppConstants.columnCompleted
     ]);
+    List<TaskModel> tasksList = [];
+    tasks?.forEach((currentTask) {
+      TaskModel task = TaskModel.fromMap(currentTask);
+      tasksList.add(task);
+    });
+    return tasksList;
+  }
+
+  Future<List<TaskModel>> getTasksInProgress() async {
+    final db = await database;
+    var tasks = await db?.query(AppConstants.dbTodoTable,
+        columns: [
+          AppConstants.columnId,
+          AppConstants.columnTitle,
+          AppConstants.columnDescription,
+          AppConstants.columnCreatedTime,
+          AppConstants.columnUpdatedTime,
+          AppConstants.columnDueDate,
+          AppConstants.columnPriority,
+          AppConstants.columnCompleted
+        ],
+        where: '${AppConstants.columnCompleted} = ?',
+        whereArgs: [1]);
+    List<TaskModel> tasksList = [];
+    tasks?.forEach((currentTask) {
+      TaskModel task = TaskModel.fromMap(currentTask);
+      tasksList.add(task);
+    });
+    return tasksList;
+  }
+
+  Future<List<TaskModel>> getTasksCompleted() async {
+    final db = await database;
+    var tasks = await db?.query(AppConstants.dbTodoTable,
+        columns: [
+          AppConstants.columnId,
+          AppConstants.columnTitle,
+          AppConstants.columnDescription,
+          AppConstants.columnCreatedTime,
+          AppConstants.columnUpdatedTime,
+          AppConstants.columnDueDate,
+          AppConstants.columnPriority,
+          AppConstants.columnCompleted
+        ],
+        where: '${AppConstants.columnCompleted} = ?',
+        whereArgs: [0]);
     List<TaskModel> tasksList = [];
     tasks?.forEach((currentTask) {
       TaskModel task = TaskModel.fromMap(currentTask);

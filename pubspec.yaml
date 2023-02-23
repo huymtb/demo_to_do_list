@@ -61,6 +61,9 @@ dependencies:
   #image
   flutter_svg: ^1.1.5
 
+  # collection
+  collection: ^1.16.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

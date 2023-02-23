@@ -56,7 +56,9 @@ abstract class _TaskModel with Store {
     description = map[AppConstants.columnDescription] as String;
     createdDate = DateTime.parse(map[AppConstants.columnCreatedTime] as String);
     updatedDate = DateTime.parse(map[AppConstants.columnUpdatedTime] as String);
-    dueDate = DateTime.parse(map[AppConstants.columnDueDate] as String);
+    dueDate = map[AppConstants.columnDueDate] != null
+        ? DateTime.parse(map[AppConstants.columnDueDate] as String)
+        : null;
     priority = map[AppConstants.columnPriority] as int;
     completed = map[AppConstants.columnCompleted] as int;
   }

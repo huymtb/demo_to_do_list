@@ -59,6 +59,116 @@ class S {
       args: [],
     );
   }
+
+  /// `Input title`
+  String get inputTitle {
+    return Intl.message(
+      'Input title',
+      name: 'inputTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input description (Optional)`
+  String get inputDescription {
+    return Intl.message(
+      'Input description (Optional)',
+      name: 'inputDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Due Date`
+  String get addDueDate {
+    return Intl.message(
+      'Add Due Date',
+      name: 'addDueDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Done`
+  String get done {
+    return Intl.message(
+      'Done',
+      name: 'done',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Priority`
+  String get add_priority {
+    return Intl.message(
+      'Add Priority',
+      name: 'add_priority',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Added Priority`
+  String get added_priority {
+    return Intl.message(
+      'Added Priority',
+      name: 'added_priority',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Created {date}`
+  String createdAt(Object date) {
+    return Intl.message(
+      'Created $date',
+      name: 'createdAt',
+      desc: '',
+      args: [date],
+    );
+  }
+
+  /// `There is yet to be a task in progress.`
+  String get emptyListProgress {
+    return Intl.message(
+      'There is yet to be a task in progress.',
+      name: 'emptyListProgress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total of tasks: {count}`
+  String totalTask(Object count) {
+    return Intl.message(
+      'Total of tasks: $count',
+      name: 'totalTask',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Completed tasks: {count}`
+  String completedTask(Object count) {
+    return Intl.message(
+      'Completed tasks: $count',
+      name: 'completedTask',
+      desc: '',
+      args: [count],
+    );
+  }
+
+  /// `Due date: {date}`
+  String dueDate(Object date) {
+    return Intl.message(
+      'Due date: $date',
+      name: 'dueDate',
+      desc: '',
+      args: [date],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

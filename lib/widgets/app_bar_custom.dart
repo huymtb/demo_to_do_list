@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:todo/assets/images/images.dart';
+import 'package:todo/router/router.dart';
 import 'package:todo/theme/app_colors.dart';
 import 'package:todo/theme/app_dimens.dart';
 
 class AppBarCustom extends StatelessWidget with PreferredSizeWidget {
-  final Widget? leadingWidget;
   final List<Widget>? actionWidget;
   final bool isShowLeadingWidget;
 
@@ -12,7 +12,6 @@ class AppBarCustom extends StatelessWidget with PreferredSizeWidget {
     Key? key,
     this.actionWidget,
     this.isShowLeadingWidget = true,
-    this.leadingWidget,
   }) : super(key: key);
 
   @override
@@ -27,7 +26,15 @@ class AppBarCustom extends StatelessWidget with PreferredSizeWidget {
         Images.icApp,
         width: AppDimens.appBarLogoSize,
       ),
-      leading: leadingWidget,
+      centerTitle: true,
+      leading: isShowLeadingWidget
+          ? IconButton(
+              onPressed: () => goBack(),
+              icon: const Icon(
+                Icons.arrow_back_outlined,
+                color: AppColors.primary,
+              ))
+          : null,
       actions: actionWidget,
     );
   }

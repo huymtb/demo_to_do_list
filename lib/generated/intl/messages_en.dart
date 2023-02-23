@@ -20,8 +20,30 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(count) => "Completed tasks: ${count}";
+
+  static String m1(date) => "Created ${date}";
+
+  static String m2(date) => "Due date: ${date}";
+
+  static String m3(count) => "Total of tasks: ${count}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "toDoApp": MessageLookupByLibrary.simpleMessage("To Do App")
+        "addDueDate": MessageLookupByLibrary.simpleMessage("Add Due Date"),
+        "add_priority": MessageLookupByLibrary.simpleMessage("Add Priority"),
+        "added_priority":
+            MessageLookupByLibrary.simpleMessage("Added Priority"),
+        "completedTask": m0,
+        "createdAt": m1,
+        "done": MessageLookupByLibrary.simpleMessage("Done"),
+        "dueDate": m2,
+        "emptyListProgress": MessageLookupByLibrary.simpleMessage(
+            "There is yet to be a task in progress."),
+        "inputDescription": MessageLookupByLibrary.simpleMessage(
+            "Input description (Optional)"),
+        "inputTitle": MessageLookupByLibrary.simpleMessage("Input title"),
+        "toDoApp": MessageLookupByLibrary.simpleMessage("To Do App"),
+        "totalTask": m3
       };
 }

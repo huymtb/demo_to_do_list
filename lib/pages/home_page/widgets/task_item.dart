@@ -36,8 +36,13 @@ class TaskItem extends StatelessWidget {
             border: Border.all(color: AppColors.primary)),
         child: Row(
           children: [
-            CompleteIconButton(
-              completed: task?.completed == 0,
+            GestureDetector(
+              onTap: () {
+                onTaskCompletedPressed?.call(task);
+              },
+              child: CompleteIconButton(
+                completed: task?.completed == 0,
+              ),
             ),
             SizedBox(width: AppDimens.defaultPadding),
             Expanded(
@@ -78,7 +83,9 @@ class TaskItem extends StatelessWidget {
             ),
             SizedBox(width: AppDimens.defaultPadding),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                onTaskPriorityPressed?.call(task);
+              },
               child: Icon(
                 task?.priority == 0
                     ? Icons.star_rounded

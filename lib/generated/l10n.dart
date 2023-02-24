@@ -169,6 +169,106 @@ class S {
       args: [date],
     );
   }
+
+  /// `Save`
+  String get save {
+    return Intl.message(
+      'Save',
+      name: 'save',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Completed {date}`
+  String completedAt(Object date) {
+    return Intl.message(
+      'Completed $date',
+      name: 'completedAt',
+      desc: '',
+      args: [date],
+    );
+  }
+
+  /// `Completed`
+  String get completed {
+    return Intl.message(
+      'Completed',
+      name: 'completed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sort by:`
+  String get sortBy {
+    return Intl.message(
+      'Sort by:',
+      name: 'sortBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Priority`
+  String get priority {
+    return Intl.message(
+      'Priority',
+      name: 'priority',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get name {
+    return Intl.message(
+      'Name',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hide completed`
+  String get hideCompleted {
+    return Intl.message(
+      'Hide completed',
+      name: 'hideCompleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure to delete this task?`
+  String get sureDeleteTask {
+    return Intl.message(
+      'Are you sure to delete this task?',
+      name: 'sureDeleteTask',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yes {
+    return Intl.message(
+      'Yes',
+      name: 'yes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get no {
+    return Intl.message(
+      'No',
+      name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

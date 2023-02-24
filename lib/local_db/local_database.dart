@@ -86,7 +86,8 @@ class LocalDatabase {
           AppConstants.columnCompleted
         ],
         where: '${AppConstants.columnCompleted} = ?',
-        whereArgs: [1]);
+        whereArgs: [1],
+        orderBy: '${AppConstants.columnUpdatedTime} DESC');
     List<TaskModel> tasksList = [];
     tasks?.forEach((currentTask) {
       TaskModel task = TaskModel.fromMap(currentTask);
@@ -109,7 +110,8 @@ class LocalDatabase {
           AppConstants.columnCompleted
         ],
         where: '${AppConstants.columnCompleted} = ?',
-        whereArgs: [0]);
+        whereArgs: [0],
+        orderBy: '${AppConstants.columnUpdatedTime} DESC');
     List<TaskModel> tasksList = [];
     tasks?.forEach((currentTask) {
       TaskModel task = TaskModel.fromMap(currentTask);

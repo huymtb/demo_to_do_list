@@ -22,6 +22,9 @@ abstract class _TaskStore with Store {
   @observable
   DateTime? dueDate;
 
+  @observable
+  DateTime? completedDate;
+
   @action
   void enableButton(String title) {
     enableDoneButton = title.isNotEmpty;

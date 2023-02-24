@@ -57,6 +57,37 @@ mixin _$AppStore on _AppStore, Store {
     });
   }
 
+  late final _$hideCompletedAtom =
+      Atom(name: '_AppStore.hideCompleted', context: context);
+
+  @override
+  bool get hideCompleted {
+    _$hideCompletedAtom.reportRead();
+    return super.hideCompleted;
+  }
+
+  @override
+  set hideCompleted(bool value) {
+    _$hideCompletedAtom.reportWrite(value, super.hideCompleted, () {
+      super.hideCompleted = value;
+    });
+  }
+
+  late final _$sortByAtom = Atom(name: '_AppStore.sortBy', context: context);
+
+  @override
+  int get sortBy {
+    _$sortByAtom.reportRead();
+    return super.sortBy;
+  }
+
+  @override
+  set sortBy(int value) {
+    _$sortByAtom.reportWrite(value, super.sortBy, () {
+      super.sortBy = value;
+    });
+  }
+
   late final _$getAllTasksAsyncAction =
       AsyncAction('_AppStore.getAllTasks', context: context);
 
@@ -90,12 +121,39 @@ mixin _$AppStore on _AppStore, Store {
         .run(() => super.deleteTask(isFirstState, taskId));
   }
 
+  late final _$_AppStoreActionController =
+      ActionController(name: '_AppStore', context: context);
+
+  @override
+  void toggleHideCompleted() {
+    final _$actionInfo = _$_AppStoreActionController.startAction(
+        name: '_AppStore.toggleHideCompleted');
+    try {
+      return super.toggleHideCompleted();
+    } finally {
+      _$_AppStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void sortTheListInProgress(int index) {
+    final _$actionInfo = _$_AppStoreActionController.startAction(
+        name: '_AppStore.sortTheListInProgress');
+    try {
+      return super.sortTheListInProgress(index);
+    } finally {
+      _$_AppStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
 isLoading: ${isLoading},
 taskInProgressList: ${taskInProgressList},
-taskCompletedList: ${taskCompletedList}
+taskCompletedList: ${taskCompletedList},
+hideCompleted: ${hideCompleted},
+sortBy: ${sortBy}
     ''';
   }
 }

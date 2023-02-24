@@ -30,5 +30,20 @@
     "@placeholders": {
       "date": {}
     }
-  }
+  },
+  "save": "Save",
+  "completedAt": "Completed {date}",
+  "@completedAt": {
+    "placeholders": {
+      "date": {}
+    }
+  },
+  "completed": "Completed",
+  "sortBy": "Sort by:",
+  "priority": "Priority",
+  "name": "Name",
+  "hideCompleted": "Hide completed",
+  "sureDeleteTask": "Are you sure to delete this task?",
+  "yes": "Yes",
+  "no": "No"
 }

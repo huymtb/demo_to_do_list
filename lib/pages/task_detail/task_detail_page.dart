@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/app/app_store.dart';
-import 'package:todo/assets/images/images.dart';
 import 'package:todo/generated/l10n.dart';
 import 'package:todo/model/task_model.dart';
 import 'package:todo/router/router.dart';
@@ -14,6 +12,8 @@ import 'package:todo/theme/app_dimens.dart';
 import 'package:todo/utils/ui_utils.dart';
 import 'package:todo/utils/utils.dart';
 import 'package:todo/widgets/app_bar_custom.dart';
+import 'package:todo/widgets/complete_icon_button.dart';
+import 'package:todo/widgets/dialog_custom.dart';
 import 'package:todo/widgets/icon_button_custom.dart';
 import 'package:todo/widgets/text_button_custom.dart';
 import 'package:todo/widgets/text_field_custom.dart';
@@ -33,7 +33,6 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
 
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  late DateTime initDate;
   int isFirstState = 0;
 
   @override
@@ -41,11 +40,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
     super.initState();
     _appStore = context.read<AppStore>();
     if (widget.task != null) {
-      isFirstState = widget.task?.completed ?? 1;
-      _titleController.text = widget.task?.title ?? '';
-      _descriptionController.text = widget.task?.description ?? '';
-    } else {
-      initDate = DateTime.now();
+      initTask();
     }
   }
 
@@ -61,7 +56,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                 onSavePressed();
                 goBack();
               },
-              btnTitle: S.of(context).done,
+              btnTitle: S.of(context).save,
               enable: _taskStore.enableDoneButton,
             )
           ],
@@ -75,10 +70,13 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                   children: [
                     if (widget.task != null) ...[
                       GestureDetector(
-                        onTap: () {},
-                        child: SvgPicture.asset(_taskStore.completed
-                            ? Images.icCheckedCircle
-                            : Images.icCircleOutline),
+                        onTap: () {
+                          _taskStore.completedDate = DateTime.now();
+                          _taskStore.toggleCompleted();
+                        },
+                        child: CompleteIconButton(
+                          completed: _taskStore.completed,
+                        ),
                       ),
                       SizedBox(width: AppDimens.defaultPadding)
                     ],
@@ -86,6 +84,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                       child: TextFieldCustom(
                         controller: _titleController,
                         hintText: S.of(context).inputTitle,
+                        completed: _taskStore.completed,
                         onChanged: (value) {
                           _taskStore.enableButton(value);
                         },
@@ -133,8 +132,11 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                       Align(
                         alignment: Alignment.center,
                         child: Text(
-                          S.of(context).createdAt(
-                              convertTimeToString(widget.task!.createdDate!)),
+                          _taskStore.completed
+                              ? S.of(context).completedAt(convertTimeToString(
+                                  _taskStore.completedDate ?? DateTime.now()))
+                              : S.of(context).createdAt(convertTimeToString(
+                                  widget.task!.createdDate!)),
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                       ),
@@ -142,8 +144,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                         alignment: Alignment.centerRight,
                         child: GestureDetector(
                           onTap: () {
-                            _appStore.deleteTask(
-                                isFirstState, widget.task!.id!);
+                            showDialogDeleteTask(context);
                           },
                           child: Icon(
                             Icons.delete_outline,
@@ -195,5 +196,55 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
               widget.task != null ? widget.task?.createdDate : DateTime.now(),
           updatedDate: DateTime.now()));
     }
+  }
+
+  void showDialogDeleteTask(BuildContext context) {
+    showDialogCustom(
+        context,
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              S.of(context).sureDeleteTask,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            SizedBox(height: AppDimens.d_14),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButtonCustom(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  btnTitle: S.of(context).no,
+                  enable: true,
+                ),
+                SizedBox(width: AppDimens.defaultPadding),
+                TextButtonCustom(
+                  onPressed: () {
+                    _appStore.deleteTask(isFirstState, widget.task!.id!);
+                    Navigator.of(context).pop();
+                    goBack();
+                  },
+                  btnTitle: S.of(context).yes,
+                  enable: true,
+                ),
+              ],
+            )
+          ],
+        ));
+  }
+
+  void initTask() {
+    isFirstState = widget.task?.completed ?? 1;
+    _titleController.text = widget.task?.title ?? '';
+    _descriptionController.text = widget.task?.description ?? '';
+    _taskStore.dueDate = widget.task?.dueDate;
+    _taskStore.priority = widget.task?.priority == 0;
+    _taskStore.completed = widget.task?.completed == 0;
+    if (_taskStore.completed) {
+      _taskStore.completedDate = widget.task?.updatedDate;
+    }
+    _taskStore.enableButton(_titleController.text);
   }
 }

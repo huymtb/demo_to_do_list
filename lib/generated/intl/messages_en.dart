@@ -20,13 +20,15 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(count) => "Completed tasks: ${count}";
+  static String m0(date) => "Completed ${date}";
 
-  static String m1(date) => "Created ${date}";
+  static String m1(count) => "Completed tasks: ${count}";
 
-  static String m2(date) => "Due date: ${date}";
+  static String m2(date) => "Created ${date}";
 
-  static String m3(count) => "Total of tasks: ${count}";
+  static String m3(date) => "Due date: ${date}";
+
+  static String m4(count) => "Total of tasks: ${count}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -34,16 +36,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "add_priority": MessageLookupByLibrary.simpleMessage("Add Priority"),
         "added_priority":
             MessageLookupByLibrary.simpleMessage("Added Priority"),
-        "completedTask": m0,
-        "createdAt": m1,
+        "completed": MessageLookupByLibrary.simpleMessage("Completed"),
+        "completedAt": m0,
+        "completedTask": m1,
+        "createdAt": m2,
         "done": MessageLookupByLibrary.simpleMessage("Done"),
-        "dueDate": m2,
+        "dueDate": m3,
         "emptyListProgress": MessageLookupByLibrary.simpleMessage(
             "There is yet to be a task in progress."),
+        "hideCompleted": MessageLookupByLibrary.simpleMessage("Hide completed"),
         "inputDescription": MessageLookupByLibrary.simpleMessage(
             "Input description (Optional)"),
         "inputTitle": MessageLookupByLibrary.simpleMessage("Input title"),
+        "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "no": MessageLookupByLibrary.simpleMessage("No"),
+        "priority": MessageLookupByLibrary.simpleMessage("Priority"),
+        "save": MessageLookupByLibrary.simpleMessage("Save"),
+        "sortBy": MessageLookupByLibrary.simpleMessage("Sort by:"),
+        "sureDeleteTask": MessageLookupByLibrary.simpleMessage(
+            "Are you sure to delete this task?"),
         "toDoApp": MessageLookupByLibrary.simpleMessage("To Do App"),
-        "totalTask": m3
+        "totalTask": m4,
+        "yes": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

@@ -34,6 +34,7 @@ void showBottomSheetCustom(BuildContext context, Widget child) {
       builder: (BuildContext context) {
         return Container(
           height: AppDimens.bottomSheetHeight,
+          width: getScreenWidth(context),
           padding: EdgeInsets.only(top: AppDimens.smallPadding),
           margin: EdgeInsets.only(
             bottom: MediaQuery.of(context).viewInsets.bottom,

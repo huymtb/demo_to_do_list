@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 import 'package:todo/local_db/local_database.dart';
 import 'package:todo/model/task_model.dart';
@@ -19,6 +18,12 @@ abstract class _AppStore with Store {
   @observable
   ObservableList<TaskModel> taskCompletedList = ObservableList<TaskModel>();
 
+  @observable
+  bool hideCompleted = false;
+
+  @observable
+  int sortBy = 0; // 0: updatedAt, 1: name, 2: priority
+
   @action
   Future<void> getAllTasks() async {
     isLoading = true;
@@ -26,13 +31,13 @@ abstract class _AppStore with Store {
       getTasksInProgress(),
       getTasksCompleted(),
     ]);
-    isLoading = false;
   }
 
   Future<void> getTasksInProgress() async {
     LocalDatabase.db.getTasksInProgress().then((list) {
       runInAction(() {
         taskInProgressList = ObservableList.of(list);
+        isLoading = false;
       });
     });
   }
@@ -41,6 +46,7 @@ abstract class _AppStore with Store {
     LocalDatabase.db.getTasksCompleted().then((list) {
       runInAction(() {
         taskCompletedList = ObservableList.of(list);
+        isLoading = false;
       });
     });
   }
@@ -52,6 +58,7 @@ abstract class _AppStore with Store {
       runInAction(() {
         taskInProgressList.insert(0, addedTask);
         isLoading = false;
+        sortTheListInProgress(sortBy);
       });
     });
   }
@@ -60,34 +67,27 @@ abstract class _AppStore with Store {
   Future<void> updateTask(TaskModel task) async {
     await LocalDatabase.db.update(task);
     if (task.completed == 0) {
-      final foundItem = taskCompletedList
-          .firstWhereOrNull((element) => element.id == task.id);
-      if (foundItem != null) {
-        foundItem.title = task.title;
-        foundItem.description = task.description;
-        foundItem.dueDate = task.dueDate;
-        foundItem.updatedDate = task.updatedDate;
-        foundItem.priority = task.priority;
-        foundItem.completed = task.completed;
+      final foundIndex =
+          taskCompletedList.indexWhere((element) => element.id == task.id);
+      if (foundIndex != -1) {
+        taskCompletedList.removeAt(foundIndex);
+        taskCompletedList.insert(foundIndex, task);
       } else {
         taskCompletedList.insert(0, task);
         taskInProgressList.removeWhere((element) => element.id == task.id);
       }
     } else {
-      final foundItem = taskInProgressList
-          .firstWhereOrNull((element) => element.id == task.id);
-      if (foundItem != null) {
-        foundItem.title = task.title;
-        foundItem.description = task.description;
-        foundItem.dueDate = task.dueDate;
-        foundItem.updatedDate = DateTime.now();
-        foundItem.priority = task.priority;
-        foundItem.completed = task.completed;
+      final foundIndex =
+          taskInProgressList.indexWhere((element) => element.id == task.id);
+      if (foundIndex != -1) {
+        taskInProgressList.removeAt(foundIndex);
+        taskInProgressList.insert(foundIndex, task);
       } else {
         taskInProgressList.insert(0, task);
         taskCompletedList.removeWhere((element) => element.id == task.id);
       }
     }
+    sortTheListInProgress(sortBy);
   }
 
   @action
@@ -96,6 +96,26 @@ abstract class _AppStore with Store {
       taskCompletedList.removeWhere((element) => element.id == taskId);
     } else {
       taskInProgressList.removeWhere((element) => element.id == taskId);
+    }
+  }
+
+  @action
+  void toggleHideCompleted() {
+    hideCompleted = !hideCompleted;
+  }
+
+  @action
+  void sortTheListInProgress(int index) {
+    sortBy = index;
+    if (index == 1) {
+      taskInProgressList.sort((taskA, taskB) =>
+          taskA.title!.toLowerCase().compareTo(taskB.title!.toLowerCase()));
+    } else if (index == 2) {
+      taskInProgressList
+          .sort((taskA, taskB) => taskA.priority!.compareTo(taskB.priority!));
+    } else {
+      taskInProgressList.sort(
+          (taskA, taskB) => taskB.updatedDate!.compareTo(taskA.updatedDate!));
     }
   }
 }

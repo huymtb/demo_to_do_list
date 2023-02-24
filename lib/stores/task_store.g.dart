@@ -88,6 +88,22 @@ mixin _$TaskStore on _TaskStore, Store {
     });
   }
 
+  late final _$completedDateAtom =
+      Atom(name: '_TaskStore.completedDate', context: context);
+
+  @override
+  DateTime? get completedDate {
+    _$completedDateAtom.reportRead();
+    return super.completedDate;
+  }
+
+  @override
+  set completedDate(DateTime? value) {
+    _$completedDateAtom.reportWrite(value, super.completedDate, () {
+      super.completedDate = value;
+    });
+  }
+
   late final _$_TaskStoreActionController =
       ActionController(name: '_TaskStore', context: context);
 
@@ -131,7 +147,8 @@ isLoading: ${isLoading},
 enableDoneButton: ${enableDoneButton},
 priority: ${priority},
 completed: ${completed},
-dueDate: ${dueDate}
+dueDate: ${dueDate},
+completedDate: ${completedDate}
     ''';
   }
 }

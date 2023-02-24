@@ -97,6 +97,7 @@ abstract class _AppStore with Store {
     } else {
       taskInProgressList.removeWhere((element) => element.id == taskId);
     }
+    await LocalDatabase.db.delete(taskId);
   }
 
   @action

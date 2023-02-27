@@ -14,4 +14,10 @@ class AppConstants {
 
   // duration (milliSecond)
   static const int splashDuration = 2000;
+
+  // key
+  static const String inputTitleKey = 'inputTitleKey';
+  static const String inputDescriptionKey = 'inputDescriptionKey';
+  static const String taskKey = 'taskKey';
+  static const String completeButtonKey = 'completedButtonKey';
 }

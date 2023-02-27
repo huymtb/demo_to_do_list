@@ -9,12 +9,13 @@ import 'package:todo/router/router.dart';
 import 'package:todo/stores/task_store.dart';
 import 'package:todo/theme/app_colors.dart';
 import 'package:todo/theme/app_dimens.dart';
+import 'package:todo/utils/app_constants.dart';
 import 'package:todo/utils/ui_utils.dart';
 import 'package:todo/utils/utils.dart';
 import 'package:todo/widgets/app_bar_custom.dart';
 import 'package:todo/widgets/complete_icon_button.dart';
 import 'package:todo/widgets/dialog_custom.dart';
-import 'package:todo/widgets/icon_button_custom.dart';
+import 'package:todo/widgets/icon_button_text_custom.dart';
 import 'package:todo/widgets/text_button_custom.dart';
 import 'package:todo/widgets/text_field_custom.dart';
 
@@ -70,6 +71,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                   children: [
                     if (widget.task != null) ...[
                       GestureDetector(
+                        key: const ValueKey(AppConstants.completeButtonKey),
                         onTap: () {
                           _taskStore.completedDate = DateTime.now();
                           _taskStore.toggleCompleted();
@@ -82,6 +84,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                     ],
                     Expanded(
                       child: TextFieldCustom(
+                        key: const ValueKey(AppConstants.inputTitleKey),
                         controller: _titleController,
                         hintText: S.of(context).inputTitle,
                         completed: _taskStore.completed,
@@ -94,24 +97,25 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                 ),
                 SizedBox(height: AppDimens.smallPadding),
                 TextFieldCustom(
+                  key: const ValueKey(AppConstants.inputDescriptionKey),
                   controller: _descriptionController,
                   hintText: S.of(context).inputDescription,
                   maxLines: 3,
                 ),
                 SizedBox(height: AppDimens.defaultPadding),
                 const Divider(),
-                IconButtonCustom(
+                IconButtonTextCustom(
                   onPressed: () {
                     _taskStore.togglePriority();
                   },
                   iconPath: Icons.star_rounded,
                   btnTitle: _taskStore.priority
-                      ? S.of(context).added_priority
-                      : S.of(context).add_priority,
+                      ? S.of(context).addedPriority
+                      : S.of(context).addPriority,
                   enable: _taskStore.priority,
                 ),
                 const Divider(),
-                IconButtonCustom(
+                IconButtonTextCustom(
                   onPressed: () {
                     openCalendar();
                   },

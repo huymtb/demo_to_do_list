@@ -65,7 +65,7 @@ automatically):and the /// flutter packages pub run build_runner watch /// 3. Cl
 
 ### 4. Step to run Todo App:
 
-4.1 - Download the Todo source code on GitHub.
+4.1 - Download the Todo source code on GitHub (develop branch).
 
 4.2 - Open the source in IDE (Android studio or VS code)
 

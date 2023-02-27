@@ -4,8 +4,8 @@
   "inputDescription": "Input description (Optional)",
   "addDueDate": "Add Due Date",
   "done": "Done",
-  "add_priority": "Add Priority",
-  "added_priority": "Added Priority",
+  "addPriority": "Add Priority",
+  "addedPriority": "Added Priority",
   "createdAt": "Created {date}",
   "@createAt": {
     "@placeholders": {
@@ -45,5 +45,6 @@
   "hideCompleted": "Hide completed",
   "sureDeleteTask": "Are you sure to delete this task?",
   "yes": "Yes",
-  "no": "No"
+  "no": "No",
+  "addNewTask": "Add New Task"
 }

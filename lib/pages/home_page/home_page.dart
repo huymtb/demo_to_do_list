@@ -14,6 +14,7 @@ import 'package:todo/theme/app_dimens.dart';
 import 'package:todo/utils/ui_utils.dart';
 import 'package:todo/widgets/app_bar_custom.dart';
 import 'package:todo/widgets/complete_icon_button.dart';
+import 'package:todo/widgets/icon_button_custom.dart';
 import 'package:todo/widgets/loading_container.dart';
 
 class HomePage extends StatefulWidget {
@@ -41,15 +42,12 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBarCustom(
           isShowLeadingWidget: false,
           actionWidget: [
-            Padding(
-              padding: EdgeInsets.all(AppDimens.smallPadding),
-              child: GestureDetector(
-                onTap: () {
-                  showMoreBottomSheet(context);
-                },
-                child: const Icon(Icons.more_horiz_sharp),
-              ),
-            ),
+            IconButtonCustom(
+              icon: Icons.more_horiz_sharp,
+              onPressed: () {
+                showMoreBottomSheet(context);
+              },
+            )
           ],
         ),
         body: Stack(
@@ -121,12 +119,12 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
                 ),
+                const AddTaskButton()
               ],
             ),
             if (_appStore.isLoading) const LoadingContainer(),
           ],
         ),
-        floatingActionButton: const AddTaskButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       );
     });

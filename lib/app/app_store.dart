@@ -7,7 +7,8 @@ part 'app_store.g.dart';
 class AppStore = _AppStore with _$AppStore;
 
 /// this class use to manage the global state for whole app,
-/// such as theme mode (dark/light)
+/// Task is manage between 2 pages, so we use global state
+/// to manage state
 abstract class _AppStore with Store {
   @observable
   bool isLoading = false;
@@ -66,17 +67,28 @@ abstract class _AppStore with Store {
   @action
   Future<void> updateTask(TaskModel task) async {
     await LocalDatabase.db.update(task);
+
+    // task is completed
     if (task.completed == 0) {
       final foundIndex =
           taskCompletedList.indexWhere((element) => element.id == task.id);
+
+      // if task could find in completed list
+      // update the completed list
       if (foundIndex != -1) {
         taskCompletedList.removeAt(foundIndex);
         taskCompletedList.insert(foundIndex, task);
-      } else {
+      }
+      // The task could not find in the completed list
+      // the task is inserted into the completed list
+      // and removed from in progress list
+      else {
         taskCompletedList.insert(0, task);
         taskInProgressList.removeWhere((element) => element.id == task.id);
       }
-    } else {
+    }
+    // task is in-progress
+    else {
       final foundIndex =
           taskInProgressList.indexWhere((element) => element.id == task.id);
       if (foundIndex != -1) {

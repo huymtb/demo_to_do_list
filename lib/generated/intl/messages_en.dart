@@ -33,9 +33,9 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addDueDate": MessageLookupByLibrary.simpleMessage("Add Due Date"),
-        "add_priority": MessageLookupByLibrary.simpleMessage("Add Priority"),
-        "added_priority":
-            MessageLookupByLibrary.simpleMessage("Added Priority"),
+        "addNewTask": MessageLookupByLibrary.simpleMessage("Add New Task"),
+        "addPriority": MessageLookupByLibrary.simpleMessage("Add Priority"),
+        "addedPriority": MessageLookupByLibrary.simpleMessage("Added Priority"),
         "completed": MessageLookupByLibrary.simpleMessage("Completed"),
         "completedAt": m0,
         "completedTask": m1,

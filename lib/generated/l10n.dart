@@ -101,20 +101,20 @@ class S {
   }
 
   /// `Add Priority`
-  String get add_priority {
+  String get addPriority {
     return Intl.message(
       'Add Priority',
-      name: 'add_priority',
+      name: 'addPriority',
       desc: '',
       args: [],
     );
   }
 
   /// `Added Priority`
-  String get added_priority {
+  String get addedPriority {
     return Intl.message(
       'Added Priority',
-      name: 'added_priority',
+      name: 'addedPriority',
       desc: '',
       args: [],
     );
@@ -265,6 +265,16 @@ class S {
     return Intl.message(
       'No',
       name: 'no',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add New Task`
+  String get addNewTask {
+    return Intl.message(
+      'Add New Task',
+      name: 'addNewTask',
       desc: '',
       args: [],
     );

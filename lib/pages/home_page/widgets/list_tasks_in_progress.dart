@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo/model/task_model.dart';
 import 'package:todo/pages/home_page/widgets/task_item.dart';
+import 'package:todo/utils/app_constants.dart';
 
 class ListTaskInProgress extends StatelessWidget {
   final List<TaskModel> listTask;
@@ -24,6 +25,7 @@ class ListTaskInProgress extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return TaskItem(
+          key: ValueKey('${AppConstants.taskKey}$index'),
           task: listTask[index],
           onTaskPressed: onTaskPressed,
           onTaskCompletedPressed: onTaskCompletedPressed,

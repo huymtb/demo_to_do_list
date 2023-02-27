@@ -61,4 +61,4 @@ flutter packages pub run build_runner watch --delete-conflicting-outputs
 ### 5. Demo
 
 5.1 - Demo Todo App
-(https://youtu.be/cby823Nt3ZQ "Demo Todo App")
+[![Demo Todo App](https://i.ytimg.com/vi/cby823Nt3ZQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=cby823Nt3ZQ "Demo Todo App")

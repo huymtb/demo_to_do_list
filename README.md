@@ -7,10 +7,7 @@
 - lib/assets: The folder contains the app's resources (images, icons, fonts,...)
 - lib/l10n: This directory will have the “arb” files for the locales supported in your app (intl_en.arb,...)
 - lib/repository: A repository directory is a place that decouples the data access logic from the business logic.
-Here are a few use cases where the repository is most appropriate:
-+ Talking to REST APIs
-+ Talking to local or remote databases (e.g. Sqflite, Firestore, etc.)
-+ Talking to device-specific APIs (e.g. permissions, camera, location, etc.)
+Here are a few use cases where the repository is most appropriate: Talking to REST APIs, talking to local or remote databases (e.g. Sqflite, Firestore, etc.), talking to device-specific APIs (e.g. permissions, camera, location, etc.)
 - lib/pages: Represents only the UI of the page. The View builds the page's UI, styles it, and depends on the Store (Mobx) to handle its events.
 - lib/router: To define the routing for the app, navigation between different screens.
 - lib/store: This directory contains the Store files (Mobx) to manage the states of the app. Connecting to the UI 

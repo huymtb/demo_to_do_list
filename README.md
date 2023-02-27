@@ -53,3 +53,12 @@ flutter packages pub run build_runner watch --delete-conflicting-outputs
 3.5 - Configure your device: Connect your device to your machine or set up an emulator or simulator. Make sure that the IDE recognizes your device.
 
 3.6 - Run the app: Once your device is connected, you can run your Flutter app by clicking the "Run" button in your IDE. The app should be compiled and deployed to your device.
+
+### 4. Steps to run test
+
+
+
+### 5. Demo
+
+5.1 - Demo Todo App
+(https://youtu.be/cby823Nt3ZQ "Demo Todo App")

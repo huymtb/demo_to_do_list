@@ -35,33 +35,45 @@ abstract class _AppStore with Store {
   }
 
   Future<void> getTasksInProgress() async {
-    LocalDatabase.db.getTasksInProgress().then((list) {
-      runInAction(() {
-        taskInProgressList = ObservableList.of(list);
-        isLoading = false;
+    try {
+      LocalDatabase.db.getTasksInProgress().then((list) {
+        runInAction(() {
+          taskInProgressList = ObservableList.of(list);
+          isLoading = false;
+        });
       });
-    });
+    } catch (e) {
+      isLoading = false;
+    }
   }
 
   Future<void> getTasksCompleted() async {
-    LocalDatabase.db.getTasksCompleted().then((list) {
-      runInAction(() {
-        taskCompletedList = ObservableList.of(list);
-        isLoading = false;
+    try {
+      LocalDatabase.db.getTasksCompleted().then((list) {
+        runInAction(() {
+          taskCompletedList = ObservableList.of(list);
+          isLoading = false;
+        });
       });
-    });
+    } catch (e) {
+      isLoading = false;
+    }
   }
 
   @action
   Future<void> addTask(TaskModel task) async {
     isLoading = true;
-    await LocalDatabase.db.insertTask(task).then((addedTask) {
-      runInAction(() {
-        taskInProgressList.insert(0, addedTask);
-        isLoading = false;
-        sortTheListInProgress(sortBy);
+    try {
+      await LocalDatabase.db.insertTask(task).then((addedTask) {
+        runInAction(() {
+          taskInProgressList.insert(0, addedTask);
+          isLoading = false;
+          sortTheListInProgress(sortBy);
+        });
       });
-    });
+    } catch (e) {
+      isLoading = false;
+    }
   }
 
   @action

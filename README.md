@@ -53,7 +53,17 @@ flutter packages pub run build_runner watch --delete-conflicting-outputs
 
 ### 4. Steps to run test
 
+4.1 - Run unit test: To run unit tests, open a terminal or command prompt and navigate to Todo project's root directory. Then, run the command flutter test to run all of the tests in the "test/directory".
 
+```
+flutter test
+```
+
+4.2 - Run integration test: To test on a real iOS/Android device, first connect the device and run the following command from the root of the project:
+
+```
+flutter test integration_test/app_test.dart
+```
 
 ### 5. Demo
 

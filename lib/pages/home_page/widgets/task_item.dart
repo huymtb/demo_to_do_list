@@ -1,8 +1,10 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:todo/generated/l10n.dart';
 import 'package:todo/model/task_model.dart';
 import 'package:todo/theme/app_colors.dart';
 import 'package:todo/theme/app_dimens.dart';
+import 'package:todo/utils/app_constants.dart';
 import 'package:todo/utils/utils.dart';
 import 'package:todo/widgets/complete_icon_button.dart';
 
@@ -22,6 +24,10 @@ class TaskItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map? priority = AppConstants()
+        .listPriority
+        .firstWhereOrNull((element) => element['value'] == task?.priority);
+    priority ??= AppConstants().defaultPriority;
     return GestureDetector(
       onTap: () {
         onTaskPressed?.call(task);
@@ -82,17 +88,7 @@ class TaskItem extends StatelessWidget {
               ),
             ),
             SizedBox(width: AppDimens.defaultPadding),
-            GestureDetector(
-              onTap: () {
-                onTaskPriorityPressed?.call(task);
-              },
-              child: Icon(
-                task?.priority == 0
-                    ? Icons.star_rounded
-                    : Icons.star_border_rounded,
-                color: AppColors.primary,
-              ),
-            ),
+            priority['icon'],
           ],
         ),
       ),

@@ -14,7 +14,7 @@ abstract class _TaskStore with Store {
   bool enableDoneButton = false;
 
   @observable
-  bool priority = false;
+  Map? priority;
 
   @observable
   bool completed = false;
@@ -31,8 +31,8 @@ abstract class _TaskStore with Store {
   }
 
   @action
-  void togglePriority() {
-    priority = !priority;
+  void togglePriority(Map selectedPriority) {
+    priority = selectedPriority;
   }
 
   @action

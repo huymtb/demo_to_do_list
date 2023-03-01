@@ -45,13 +45,13 @@ mixin _$TaskStore on _TaskStore, Store {
       Atom(name: '_TaskStore.priority', context: context);
 
   @override
-  bool get priority {
+  Map<dynamic, dynamic>? get priority {
     _$priorityAtom.reportRead();
     return super.priority;
   }
 
   @override
-  set priority(bool value) {
+  set priority(Map<dynamic, dynamic>? value) {
     _$priorityAtom.reportWrite(value, super.priority, () {
       super.priority = value;
     });
@@ -119,11 +119,11 @@ mixin _$TaskStore on _TaskStore, Store {
   }
 
   @override
-  void togglePriority() {
+  void togglePriority(Map<dynamic, dynamic> selectedPriority) {
     final _$actionInfo = _$_TaskStoreActionController.startAction(
         name: '_TaskStore.togglePriority');
     try {
-      return super.togglePriority();
+      return super.togglePriority(selectedPriority);
     } finally {
       _$_TaskStoreActionController.endAction(_$actionInfo);
     }

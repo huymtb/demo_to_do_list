@@ -45,9 +45,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "emptyListProgress": MessageLookupByLibrary.simpleMessage(
             "There is yet to be a task in progress."),
         "hideCompleted": MessageLookupByLibrary.simpleMessage("Hide completed"),
+        "highPriority": MessageLookupByLibrary.simpleMessage("High Priority"),
         "inputDescription": MessageLookupByLibrary.simpleMessage(
             "Input description (Optional)"),
         "inputTitle": MessageLookupByLibrary.simpleMessage("Input title"),
+        "lowPriority": MessageLookupByLibrary.simpleMessage("Low Priority"),
+        "mediumPriority":
+            MessageLookupByLibrary.simpleMessage("Medium Priority"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "priority": MessageLookupByLibrary.simpleMessage("Priority"),

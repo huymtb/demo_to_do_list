@@ -86,19 +86,6 @@ class TaskDetailPageRobot {
     await tester.enterText(descriptionInputFinder, 'Task 1 description update');
     await tester.pumpAndSettle();
 
-    final Finder setAddPriorityFinder = find.descendant(
-        of: find.byType(IconButtonTextCustom),
-        matching: find.text(S.of(context).addPriority));
-    expect(setAddPriorityFinder, findsOneWidget);
-
-    await tester.tap(setAddPriorityFinder);
-    await tester.pumpAndSettle();
-
-    final Finder setAddedPriorityFinder = find.descendant(
-        of: find.byType(IconButtonTextCustom),
-        matching: find.text(S.of(context).addedPriority));
-    expect(setAddedPriorityFinder, findsOneWidget);
-
     // press save button
     await tester.tap(saveButton);
     await tester.pumpAndSettle();

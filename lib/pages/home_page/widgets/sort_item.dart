@@ -6,12 +6,14 @@ class SortItem extends StatelessWidget {
   final Function? onPressed;
   final bool isSelected;
   final String title;
+  final Widget? icon;
 
   const SortItem({
     Key? key,
     this.onPressed,
     this.isSelected = false,
     this.title = '',
+    this.icon,
   }) : super(key: key);
 
   @override
@@ -27,10 +29,16 @@ class SortItem extends StatelessWidget {
             completed: isSelected,
           ),
           SizedBox(width: AppDimens.defaultPadding),
-          Text(
-            title,
-            style: Theme.of(context).textTheme.titleMedium,
+          Expanded(
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
           ),
+          if (icon != null) ...[
+            icon!,
+            SizedBox(width: AppDimens.defaultPadding),
+          ],
         ],
       ),
     );

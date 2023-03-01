@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -5,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:todo/app/app_store.dart';
 import 'package:todo/generated/l10n.dart';
 import 'package:todo/model/task_model.dart';
+import 'package:todo/pages/home_page/widgets/sort_item.dart';
 import 'package:todo/router/router.dart';
 import 'package:todo/stores/task_store.dart';
 import 'package:todo/theme/app_colors.dart';
@@ -40,6 +42,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
   void initState() {
     super.initState();
     _appStore = context.read<AppStore>();
+    _taskStore.priority = AppConstants().defaultPriority;
     if (widget.task != null) {
       initTask();
     }
@@ -106,13 +109,14 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                 const Divider(),
                 IconButtonTextCustom(
                   onPressed: () {
-                    _taskStore.togglePriority();
+                    showBottomSheetPriority(context);
                   },
-                  iconPath: Icons.star_rounded,
-                  btnTitle: _taskStore.priority
-                      ? S.of(context).addedPriority
-                      : S.of(context).addPriority,
-                  enable: _taskStore.priority,
+                  icon: _taskStore.priority?['icon'],
+                  btnTitle: _taskStore.priority?['title'],
+                  enable: _taskStore.priority?['value'] != 3,
+                  suffixIconPressed: () {
+                    _taskStore.togglePriority(AppConstants().defaultPriority);
+                  },
                 ),
                 const Divider(),
                 IconButtonTextCustom(
@@ -184,7 +188,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
           title: _titleController.text,
           description: _descriptionController.text,
           dueDate: _taskStore.dueDate,
-          priority: _taskStore.priority ? 0 : 1,
+          priority: _taskStore.priority?['value'],
           completed: _taskStore.completed ? 0 : 1,
           createdDate:
               widget.task != null ? widget.task?.createdDate : DateTime.now(),
@@ -194,7 +198,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
           title: _titleController.text,
           description: _descriptionController.text,
           dueDate: _taskStore.dueDate,
-          priority: _taskStore.priority ? 0 : 1,
+          priority: _taskStore.priority?['value'],
           completed: _taskStore.completed ? 0 : 1,
           createdDate:
               widget.task != null ? widget.task?.createdDate : DateTime.now(),
@@ -239,12 +243,62 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
         ));
   }
 
+  void showBottomSheetPriority(BuildContext context) {
+    showBottomSheetCustom(
+        context,
+        Material(
+          color: AppColors.white,
+          child: Padding(
+            padding: EdgeInsets.all(AppDimens.defaultPadding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  S.of(context).addPriority,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                SizedBox(height: AppDimens.d_10),
+                Observer(builder: (context) {
+                  return Expanded(
+                    child: ListView.builder(
+                        itemCount: AppConstants().listPriority.length,
+                        padding: EdgeInsets.zero,
+                        itemBuilder: (context, index) {
+                          Map priority = AppConstants().listPriority[index];
+                          return Padding(
+                            padding:
+                                EdgeInsets.symmetric(vertical: AppDimens.d_10),
+                            child: SortItem(
+                              isSelected:
+                                  _taskStore.priority == priority['value'],
+                              title: priority['title'],
+                              icon: priority['icon'],
+                              onPressed: () {
+                                _taskStore.togglePriority(priority);
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          );
+                        }),
+                  );
+                }),
+              ],
+            ),
+          ),
+        ));
+  }
+
   void initTask() {
     isFirstState = widget.task?.completed ?? 1;
     _titleController.text = widget.task?.title ?? '';
     _descriptionController.text = widget.task?.description ?? '';
     _taskStore.dueDate = widget.task?.dueDate;
-    _taskStore.priority = widget.task?.priority == 0;
+    final priority = AppConstants().listPriority.firstWhereOrNull(
+        (priority) => priority['value'] == widget.task?.priority);
+    if (priority != null) {
+      _taskStore.priority = priority;
+    }
     _taskStore.completed = widget.task?.completed == 0;
     if (_taskStore.completed) {
       _taskStore.completedDate = widget.task?.updatedDate;

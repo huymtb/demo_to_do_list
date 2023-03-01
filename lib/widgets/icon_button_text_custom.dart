@@ -6,16 +6,18 @@ class IconButtonTextCustom extends StatelessWidget {
   final Function? onPressed;
   final Function? suffixIconPressed;
   final bool enable;
-  final IconData iconPath;
+  final IconData? iconPath;
   final String btnTitle;
+  final Widget? icon;
 
   const IconButtonTextCustom({
     Key? key,
-    required this.iconPath,
+    this.iconPath,
     required this.btnTitle,
     this.enable = false,
     this.onPressed,
     this.suffixIconPressed,
+    this.icon,
   }) : super(key: key);
 
   @override
@@ -29,7 +31,7 @@ class IconButtonTextCustom extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: AppDimens.smallPadding),
         child: Row(
           children: [
-            Icon(iconPath, color: enableColor),
+            if (icon != null) icon! else Icon(iconPath, color: enableColor),
             SizedBox(width: AppDimens.defaultPadding),
             Expanded(
                 child: Text(

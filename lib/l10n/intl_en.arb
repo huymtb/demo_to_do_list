@@ -46,5 +46,8 @@
   "sureDeleteTask": "Are you sure to delete this task?",
   "yes": "Yes",
   "no": "No",
-  "addNewTask": "Add New Task"
+  "addNewTask": "Add New Task",
+  "lowPriority": "Low Priority",
+  "mediumPriority": "Medium Priority",
+  "highPriority": "High Priority"
 }

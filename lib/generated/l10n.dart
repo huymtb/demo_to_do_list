@@ -279,6 +279,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Low Priority`
+  String get lowPriority {
+    return Intl.message(
+      'Low Priority',
+      name: 'lowPriority',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Medium Priority`
+  String get mediumPriority {
+    return Intl.message(
+      'Medium Priority',
+      name: 'mediumPriority',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `High Priority`
+  String get highPriority {
+    return Intl.message(
+      'High Priority',
+      name: 'highPriority',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

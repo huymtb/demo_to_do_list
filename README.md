@@ -68,7 +68,7 @@ flutter test integration_test/app_test.dart
 ### 5. Demo
 
 5.1 - Demo Todo App
-[![Demo Todo App](https://i.ytimg.com/vi/cby823Nt3ZQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=cby823Nt3ZQ "Demo Todo App")
+[![Demo Todo App](https://i.ytimg.com/vi/j1WSWIy-EeA/maxresdefault.jpg)](https://www.youtube.com/watch?v=j1WSWIy-EeA "Demo Todo App")
 
 5.2 - Demo Run App and Test
 [![Demo Run App and Test](https://i.ytimg.com/vi/QlLwSf-YjHk/maxresdefault.jpg)](https://www.youtube.com/watch?v=QlLwSf-YjHk "Demo Run App and Test")
